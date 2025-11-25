@@ -8,7 +8,7 @@ Hello, I'm **Farrel Beso**.
 
 I'm a **BSCS graduate** from **UP Los Baños**, Batch '25.
 
-Currently, I'm re-learning the fundamentals, right now, it's about **mathematical proofs** and **abstract algebra**. As such topics nourish the mind, I too cultivate my body by **physically working out** 4 to 5 times a week.
+Currently, I'm re-learning the fundamentals, right now, it's about **mathematical proofs** and **abstract algebra**.
 
 I'm just going to post my thoughts here ad libitum.
 

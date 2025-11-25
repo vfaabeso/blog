@@ -4,8 +4,21 @@ title = 'Farrel Beso'
 theme = "dream"
 
 [params]
+
 showTableOfContents = true
 showPrevNextPost = true
+showSummaryCoverInPost = true
+imageZoomableInPost = true
+
+lightTheme = "emerald"
+darkTheme = "forest"
+
+author = "Farrel Beso"
+avatar = "img/personal/avatar.jpg"
+description = "My Blog"
+headerTitle = "Farrel's Blog"
+email = "farrelbeso@gmail.com"
+siteStartYear = 2025
 
 [markup]
   [markup.goldmark]

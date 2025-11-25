@@ -2,18 +2,18 @@
 title: Index Arithmetic for Tree Data Structures
 date: 2025-11-25T09:46:49+08:00
 lastmod: 2025-11-25T09:46:49+08:00
-author: Farrel Beso
+# author: Farrel Beso
 # avatar: /img/author.jpg
 # authorlink: https://author.site
-cover: /img/cover.jpg
+# cover: /img/cover.jpg
 # covercaption: a description of the cover image
 images:
   - tree.svg
 categories:
   - random-thoughts
 tags:
-  - math
-  - cs
+  - Math
+  - Computer Science
 # nolastmod: true
 math: true
 draft: true
