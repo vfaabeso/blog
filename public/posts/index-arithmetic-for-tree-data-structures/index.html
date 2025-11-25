@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  x-data
+  :class="$store.darkMode.class()"
+  :data-theme="$store.darkMode.theme()">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Arithmetic for Tree Data Structures | Farrel Beso</title>
+
+    
+
+<link rel="canonical" href="http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/" />
+
+
+
+<meta name="author" content="Farrel Beso" />
+<meta name="description" content="Prerequisite knowledge This article assumes that the reader has some knowledge in data structure and algorithms in computer science, specifically the tree data structure and tree traversal. A knowledge in formal grammar would be of great help since it introduces what a tree syntactically is.
+Motivation The primary motivation why such an idea was conceived is tree traversal without the need for explicit indexing of the tree nodes, nor the need to flatten a recursive list. As I try to solve such an issue, I sensed a link between tree traversal, tree indexing, and number systems with their basic arithmetic operations. The primary operations that I have stumbled upon are next(), last(), and prev(), which are further expounded within this article.
+" />
+
+
+<meta name="keywords" content="Math,Cs">
+
+
+
+<meta name="generator" content="Hugo 0.152.2">
+
+
+<meta property="og:url" content="http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/">
+  <meta property="og:site_name" content="Farrel Beso">
+  <meta property="og:title" content="Index Arithmetic for Tree Data Structures">
+  <meta property="og:description" content="Prerequisite knowledge This article assumes that the reader has some knowledge in data structure and algorithms in computer science, specifically the tree data structure and tree traversal. A knowledge in formal grammar would be of great help since it introduces what a tree syntactically is.
+Motivation The primary motivation why such an idea was conceived is tree traversal without the need for explicit indexing of the tree nodes, nor the need to flatten a recursive list. As I try to solve such an issue, I sensed a link between tree traversal, tree indexing, and number systems with their basic arithmetic operations. The primary operations that I have stumbled upon are next(), last(), and prev(), which are further expounded within this article.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-11-25T09:46:49+08:00">
+    <meta property="article:modified_time" content="2025-11-25T09:46:49+08:00">
+    <meta property="article:tag" content="Math">
+    <meta property="article:tag" content="Cs">
+    <meta property="og:image" content="http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/tree.svg">
+
+
+
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/tree.svg">
+  <meta name="twitter:title" content="Index Arithmetic for Tree Data Structures">
+  <meta name="twitter:description" content="Prerequisite knowledge This article assumes that the reader has some knowledge in data structure and algorithms in computer science, specifically the tree data structure and tree traversal. A knowledge in formal grammar would be of great help since it introduces what a tree syntactically is.
+Motivation The primary motivation why such an idea was conceived is tree traversal without the need for explicit indexing of the tree nodes, nor the need to flatten a recursive list. As I try to solve such an issue, I sensed a link between tree traversal, tree indexing, and number systems with their basic arithmetic operations. The primary operations that I have stumbled upon are next(), last(), and prev(), which are further expounded within this article.">
+
+
+
+
+<link rel="stylesheet" href="/css/output.css" />
+
+
+
+
+    
+
+
+<style>
+  pre {
+    padding: 1em;
+    overflow: auto;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+    
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.1/dist/cdn.min.js" integrity="sha256-Rmqrc5SKeSLTSnQ9shSKWmJco1ks8c1hLI8UG2Np03M=" crossorigin="anonymous"></script>
+  </head>
+
+  <body x-data="{
+    flip: false,
+  }">
+    
+    <div id="dream-global-bg"></div>
+
+    
+<nav class="mt-4 lg:mt-8 py-4">
+
+  
+  <div class="container flex justify-between px-4">
+  
+    <section class="flex items-center gap-4">
+      <div class="avatar cursor-pointer hover:avatar-online" @click="flip = !flip" title="Flip it!">
+        <div class="h-10 rounded-full">
+          <img src="/" alt="" />
+        </div>
+      </div>
+
+      
+    </section>
+
+    
+    
+
+    <div class="dropdown dropdown-end sm:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-square" aria-label="Select an option">
+        <ion-icon name="menu" class="text-2xl"></ion-icon>
+      </div>
+      <ul tabindex="0" class="dropdown-content menu w-36 bg-base-100 rounded-box z-1 shadow-md">
+        
+
+
+
+
+
+
+
+<li>
+  <div role="link" tabindex="0" class="inline-flex items-center p-2 cursor-pointer" @click="flip = !flip" title="About">
+    <ion-icon name="information-circle"></ion-icon>About</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/posts" title="Archives">
+    <ion-icon name="archive"></ion-icon>
+    Archives
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="All Categories">
+    <ion-icon name="grid"></ion-icon>
+    All Categories
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="All Tags">
+    <ion-icon name="pricetags"></ion-icon>
+    All Tags
+  </a>
+</li>
+
+
+
+
+
+
+      </ul>
+    </div>
+    <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
+      
+
+      
+      
+
+
+
+
+<div role="link" tabindex="0" class="text-sm font-semibold cursor-pointer hover:underline" @click="flip = !flip" title="About">About</div>
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/posts" title="Archives">
+  <ion-icon class="group-hover:text-primary-content" name="archive"></ion-icon>
+</a>
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/categories" title="All Categories">
+  <ion-icon class="group-hover:text-primary-content" name="grid"></ion-icon>
+</a>
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/tags" title="All Tags">
+  <ion-icon class="group-hover:text-primary-content" name="pricetags"></ion-icon>
+</a>
+
+
+      
+
+      
+
+      
+    </section>
+  </div>
+</nav>
+
+
+    <div class="flip-container" :class="{ 'flip-it': flip }">
+      <div class="flipper">
+        <div class="front">
+          <div class="container">
+            
+<div class="lg:grid lg:grid-cols-4 gap-4 mt-4 px-4">
+  <div class="hidden lg:block">
+    
+  </div>
+
+  <div class="lg:col-span-2">
+    <article class="mx-auto prose prose-quoteless dark:prose-invert" id="dream-single-post-main" itemscope itemtype="http://schema.org/Article">
+      
+  <meta itemprop="name" content="Index Arithmetic for Tree Data Structures">
+  <meta itemprop="description" content="Prerequisite knowledge This article assumes that the reader has some knowledge in data structure and algorithms in computer science, specifically the tree data structure and tree traversal. A knowledge in formal grammar would be of great help since it introduces what a tree syntactically is.
+Motivation The primary motivation why such an idea was conceived is tree traversal without the need for explicit indexing of the tree nodes, nor the need to flatten a recursive list. As I try to solve such an issue, I sensed a link between tree traversal, tree indexing, and number systems with their basic arithmetic operations. The primary operations that I have stumbled upon are next(), last(), and prev(), which are further expounded within this article.">
+  <meta itemprop="datePublished" content="2025-11-25T09:46:49+08:00">
+  <meta itemprop="dateModified" content="2025-11-25T09:46:49+08:00">
+  <meta itemprop="wordCount" content="1925">
+  <meta itemprop="image" content="http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/tree.svg">
+  <meta itemprop="keywords" content="Math,Cs">
+
+      <header>
+        <h1 itemprop="headline">Index Arithmetic for Tree Data Structures</h1>
+        <p class="text-sm">
+          
+            Tuesday, Nov 25, 2025
+          
+
+          | <span>10 minute read</span>
+
+          
+          | <span>Updated at
+            
+              Tuesday, Nov 25, 2025
+            </span>
+          
+        </p>
+
+        
+        <div class="flex justify-between">
+          
+            <div class="flex items-center">
+  
+  <span>@</span>
+  
+
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+  
+    
+      <span itemprop="name">Farrel Beso</span>
+    
+  
+  </span>
+</div>
+
+          
+
+          <div class="flex items-center gap-2">
+  
+  
+
+  
+  
+  
+  
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://x.com/intent/post?text=Index%20Arithmetic%20for%20Tree%20Data%20Structures&amp;url=http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/" target="_blank" rel="noopener noreferrer"
+      title="Share on X">
+      <ion-icon class="group-hover:text-primary-content" name="logo-x"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://facebook.com/sharer/sharer.php?u=http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/" target="_blank" rel="noopener noreferrer"
+      title="Share on Facebook">
+      <ion-icon class="group-hover:text-primary-content" name="logo-facebook"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://wa.me/?text=Index%20Arithmetic%20for%20Tree%20Data%20Structures%20http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/" target="_blank" rel="noopener noreferrer"
+      title="Share on WhatsApp">
+      <ion-icon class="group-hover:text-primary-content" name="logo-whatsapp"></ion-icon>
+    </a>
+  
+
+  
+  
+</div>
+
+        </div>
+      </header>
+
+      <section id="dream-single-post-content" itemprop="articleBody">
+        
+
+        <h2 id="prerequisite-knowledge">Prerequisite knowledge</h2>
+<p>This article assumes that the reader has some knowledge in data structure and algorithms in computer science, specifically the tree data structure and tree traversal. A knowledge in formal grammar would be of great help since it introduces what a tree syntactically is.</p>
+<h2 id="motivation">Motivation</h2>
+<p>The primary motivation why such an idea was conceived is tree traversal without the need for explicit indexing of the tree nodes, nor the need to flatten a recursive list. As I try to solve such an issue, I sensed a link between tree traversal, tree indexing, and number systems with their basic arithmetic operations. The primary operations that I have stumbled upon are <code>next()</code>, <code>last()</code>, and <code>prev()</code>, which are further expounded within this article.</p>
+
+
+
+  <blockquote class="dream-alert caution">
+    <p class="heading">
+      <ion-icon name="alert-circle-outline"></ion-icon>Disclaimer</p>
+    <p>I have not yet performed a deep exploration regarding the originality of this topic, but it is highly probable that someone years ago has discovered this very topic, so at best, this is a re-exploration of index arithmetic for tree data structures in general. I will update this article if I have searched papers that discuss this topic.</p>
+  </blockquote>
+
+<h2 id="tree-definition">Tree definition</h2>
+<p>We define a <strong>tree</strong> as having the following syntax:</p>
+<pre tabindex="0"><code>&lt;tree&gt; : (&lt;leaf&gt; | &lt;tree&gt;)*
+</code></pre><p>A tree in this case, is <strong>recursive</strong>, with the <strong>leaf</strong> as a terminal symbol. A leaf may be called a special type of tree in that it has zero children. In our graphical representation, we represent a tree as a <strong>node</strong> with zero or more children, connected with lines to represent which nodes their children are.</p>
+<p>Suppose that we have the following tree. Let the top-most node be $R$, abbreviated as the <strong>root</strong>. We also have labeled the nodes for illustration purposes.</p>
+<p><img src="tree.svg" alt="Image"></p>
+<h2 id="node-indexing">Node indexing</h2>
+<p>We can indirectly reference some node by referring the children of a tree by its index. The start of the index will be 1, as opposed to the usual programming convention of 0. This will simplify the arithmetic later in this article. Referencing the nodes relative to $R$:</p>
+<pre tabindex="0"><code>a = R[1]
+b = R[2]
+c = R[1, 1]
+d = R[1, 2]
+e = R[2, 1]
+f = R[1, 2, 1]
+g = R[2, 1, 1]
+</code></pre><p>Of course, it is also true that we can reference the nodes by some other nodes, for example:</p>
+<pre tabindex="0"><code>f = d[1] = a[2, 1] = R[1, 2, 1]
+</code></pre><p>It is also common sense that we will run into errors when accessing invalid indexes, for example, <code>R[3]</code>, <code>R[1, 2, 2]</code>, etc.</p>
+<h2 id="index-arithmetic">Index Arithmetic</h2>
+<h3 id="bounded-arithmetic">Bounded Arithmetic</h3>
+<p>This notion of <em>bounded arithmetic</em> will be useful in index operations. To add a <strong>bound</strong> to a non-negative number (which is the standard number set for indexing a list or iterable in general), we add a non-negative number subscript to it to indicate an <strong>upper bound</strong>. Thus, for example, a <strong>bounded number</strong> $a_b$ means that $a$ cannot exceed $b$, otherwise it will be an <strong>overflow</strong>. There is an implicit <strong>lower bound</strong> to this bounded number: $a$ cannot be negative. For example, $4_5$ is a valid bounded number, while $4_3$ is an overflow, and $-1_3$ is an underflow.</p>
+<p>We can then introduce <strong>increment</strong> and <strong>decrement</strong> operations to our number system, that is, add 1 and subtract 1 respectively. This is similar to basic arithmetic. An increment is represented by the formula $a_b + 1 = (a+1)_b$, while a decrement is represented as $a_b - 1 = (a-1)_b$.</p>
+<h3 id="next"><code>next()</code></h3>
+<p>Let us first assume that we can add 1 to an index, in other words, some function <code>next(tree)</code>.</p>
+<p><strong>next(R)</strong></p>
+<p>To demonstrate how <code>next()</code> works, we will traverse every node in the tree. Let us start with node $R$. We can index this node by $R[0_2]$. The zero index implies that nothing is being accessed in that node&rsquo;s children, and thus referring to the parent node itself. The $2$ subscript means that the number of children in this node is two. In other words, this digit $0$ is a member of the set $\{0, 1, 2\}$ (in mathematical notation, $0 \in \{0, 1, 2\}$). When incrementing or decrementing, we always add the zero index as the last digit of the operand, as a way of foreseeing that a node might have some children.</p>
+<p>Calculating $\mathrm{next}(R)$, we get:</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$0_2$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$+$</td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$1_2$</td>
+      </tr>
+  </tbody>
+</table>
+<p>The operand $1$ is implicitly understood as $1_2$, because this $1 \in \{0, 1, 2\}$. The index $R[1_2]$ is precisely the index for $a$. The index $[1_2]$ means that $a$ is the first child of two children of $R$.</p>
+<p><strong>next(a)</strong></p>
+<p>Recall that we have to add the zero index before beginning the operation. Node $a$ has two children, therefore the last digit would be $0_2$. Incrementing the index by 1:</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$1_2$</th>
+          <th>$0_2$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$+$</td>
+          <td>($0$)</td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$1_2$</td>
+          <td>$1_2$</td>
+      </tr>
+  </tbody>
+</table>
+<p>Just like in regular addition, the higher digits are thought of having the value of zero, thus we effectively copy the higher digits to our sum. $R[1_2, 1_2]$ is the index for $c$. The index $[1_2, 1_2]$ means that $c$ is the first child of the two children of $R[1_2]$ or $a$.</p>
+<p><strong>next(c)</strong></p>
+<p>With the basic rules of addition, we can proceed computing for $\mathrm{next}(c)$, where $c$ is equal to $R[1_2, 1_2, 0_0]$. Suppose that we add the first digit with 1: the digit will <strong>overflow</strong> ($1_0$). To be more precise, this form of overflow is a <strong>partial overflow</strong> because a fix can be made: in this case, just like in regular multi-digit addition, we <strong>carry over</strong> the excess to the next digit. In the last digit, $0_0 + 1 = 0$. The sum of zero in this case has an unknown upper bound, so we do not denote a subscript to it. The remaining operations proceed normally.</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th></th>
+          <th>$1$</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td></td>
+          <td>$1_2$</td>
+          <td>$1_2$</td>
+          <td>$0_0$</td>
+      </tr>
+      <tr>
+          <td>$+$</td>
+          <td></td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$1_2$</td>
+          <td>$2_2$</td>
+          <td>$0$</td>
+      </tr>
+  </tbody>
+</table>
+<p>$R[1_2, 2_2, 0]$ or simply $R[1_2, 2_2]$ is the index of $d$.</p>
+<p><strong>next(d)</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$1_2$</th>
+          <th>$2_2$</th>
+          <th>$0_1$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$+$</td>
+          <td></td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$1_2$</td>
+          <td>$2_2$</td>
+          <td>$1_1$</td>
+      </tr>
+  </tbody>
+</table>
+<p>$R[1_2, 2_2, 1_1]$ corresponds to node $f$.</p>
+<p><strong>next(f)</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$1$</th>
+          <th>$1$</th>
+          <th>$1$</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td></td>
+          <td>$1_2$</td>
+          <td>$2_2$</td>
+          <td>$1_1$</td>
+          <td>$0_0$</td>
+      </tr>
+      <tr>
+          <td>$+$</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$2_2$</td>
+          <td>$0$</td>
+          <td>$0$</td>
+          <td>$0$</td>
+      </tr>
+  </tbody>
+</table>
+<p>$R[2_2]$ corresponds to node $b$.</p>
+<p><strong>next(b)</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$2_2$</th>
+          <th>$0_1$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$+$</td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$2_2$</td>
+          <td>$1_1$</td>
+      </tr>
+  </tbody>
+</table>
+<p>$R[2_2, 1_1]$ corresponds to node $e$.</p>
+<p><strong>next(e)</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$2_2$</th>
+          <th>$1_1$</th>
+          <th>$0_1$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$+$</td>
+          <td></td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$2_2$</td>
+          <td>$1_1$</td>
+          <td>$1_1$</td>
+      </tr>
+  </tbody>
+</table>
+<p>$R[2_2, 1_1, 1_1]$ corresponds to node $g$.</p>
+<p><strong>next(g)</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$1$</th>
+          <th>$1$</th>
+          <th>$1$</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td></td>
+          <td>$2_2$</td>
+          <td>$1_1$</td>
+          <td>$1_1$</td>
+          <td>$0_0$</td>
+      </tr>
+      <tr>
+          <td>$+$</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$3_2$</td>
+          <td>$0$</td>
+          <td>$0$</td>
+          <td>$0$</td>
+      </tr>
+  </tbody>
+</table>
+<p>The highest digit cannot be further fixed, thus representing a <strong>full overflow</strong>. Therefore, $\mathrm{next}(g)$ does not exist. We can also call $g$ as the $\mathrm{last}()$ of $R$ or $\mathrm{last}(R)$.</p>
+<p>The full traversal: $R, a, c, d, f, b, e, g$ is precisely a <strong>preorder traversal</strong> of the tree.</p>
+<h3 id="last"><code>last()</code></h3>
+<p>Calculating the $\mathrm{last}()$ of a node is relatively simple, we get the &ldquo;lastmost&rdquo; node of a tree, that is, if a tree has children, pick the last child every time until we encounter a leaf.</p>
+<p>We have inferred earlier that $\mathrm{last}(R) = g$. The process is as follows:</p>
+<ul>
+<li>The last child of $R$ is $b$.</li>
+<li>The last child of $b$ is $e$ (only child).</li>
+<li>The last child of $e$ is $g$ (only child).</li>
+<li>Since $g$ is a leaf, then this means that $\mathrm{last}(g) = g$, that is, the $\mathrm{last}(n)$ of some node $n$ is itself. To complete: $\mathrm{last}(R) = \mathrm{last}(b) = \mathrm{last}(e) = \mathrm{last}(g) = g$.</li>
+</ul>
+<p>This process can be described as recursive, but of course, can be implemented iteratively.</p>
+<p>Calculating $\mathrm{last}(a)$ should be easy: $\mathrm{last}(a) = \mathrm{last}(d) = \mathrm{last}(f) = f$. The $\mathrm{last}(c)$ is itself, $c$.</p>
+<h3 id="prev"><code>prev()</code></h3>
+<p>This is the reverse of the <code>next()</code> operation, where it is operationally represented as an index decrement. Starting from the last node $g$, we will traverse towards $R$.</p>
+<p><strong>prev(g)</strong></p>
+<p>We will also add the zero index when decrementing the index.</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$2_2$</th>
+          <th>$1_1$</th>
+          <th>$1_1$</th>
+          <th>$0_0$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$-$</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>???</td>
+      </tr>
+  </tbody>
+</table>
+<p>We cannot directly subtract 0 by 1. In effect, we have encountered a <strong>partial underflow</strong>. Just like in regular multi-digit subtraction, to fix this underflow, we &ldquo;borrow 1&rdquo; from the next digit. This procedure is safe relative to the next digit since we are not referring to any nodes with a zero index. Note that $0_0 + 1$ will result in an overflow, so we leave it be.</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$2_2$</th>
+          <th>$1_1$</th>
+          <th>$1_1 - 1 \rightarrow 0_1$</th>
+          <th>$0_0 + 1$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$-$</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<p>Then we can subtract as normal. Note that $0_0 + 1 - 1 = 0_0$.</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$2_2$</th>
+          <th>$1_1$</th>
+          <th>$1_1 - 1 \rightarrow 0_1$</th>
+          <th>$0_0 + 1$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$-$</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$2_2$</td>
+          <td>$1_1$</td>
+          <td>$0_1$</td>
+          <td>$0_0$</td>
+      </tr>
+  </tbody>
+</table>
+<p>$R[2_2, 1_1, 0_1, 0_0]$, or simply $R[2_2, 1_1]$ corresponds to node $e$.</p>
+<p><strong>prev(e)</strong></p>
+<p>This is similar to calculating $\mathrm{prev}(g)$</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$2_2$</th>
+          <th>$1_1 - 1 \rightarrow 0_1$</th>
+          <th>$0_1 + 1$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$-$</td>
+          <td></td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$2_2$</td>
+          <td>$0_1$</td>
+          <td>$0_1$</td>
+      </tr>
+  </tbody>
+</table>
+<p>$R[2_2]$ corresponds to node $b$.</p>
+<p><strong>prev(b)</strong></p>
+<p>Assuming that we follow the same steps as before, we will get the following.</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$2_2 - 1 \rightarrow 1_2$</th>
+          <th>$0_1 + 1$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$-$</td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$1_2$</td>
+          <td>$0_1$</td>
+      </tr>
+  </tbody>
+</table>
+<p>This is incorrect, because $\mathrm{next}(R[1_2])$ or $a$ is not equal to $b$. This is because the $1_2$ references a subtree, where there exists $\mathrm{last}(a)$. Therefore, $\mathrm{prev}(b) = \mathrm{last}(a)$.</p>
+<p>In general, if we borrow from the next digit and the resulting value is not zero, we will effectively &ldquo;rewrite&rdquo; the proceeding terms with the <code>last</code> of the digit where we borrowed 1 from, including the zero digit, and add 1 to that last digit, before subtracting by 1. This rewriting effectively retrieves the <code>last</code> of the previous sibling node, and add 1 to the index.</p>
+<p>Rewriting the operand step by step $\mathrm{last}(a) = a[2_2, 1_1] = R[1_2, 2_2, 1_1, 0_0] = f$. To complete the essence of subtraction (although we can stop by declaring that $\mathrm{prev}(b) = f$), we add 1 to the last digit and subtract it by 1.</p>
+<table>
+  <thead>
+      <tr>
+          <th>index of node $b$</th>
+          <th>$2_2$</th>
+          <th>$0_1$</th>
+          <th></th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>retrieve $\mathrm{last}(R[1_2]) = f$</td>
+          <td>$2_2 - 1 \rightarrow 1_2$</td>
+          <td>$2_2$</td>
+          <td>$1_1$</td>
+          <td>$0_0$</td>
+      </tr>
+      <tr>
+          <td>add 1 to last digit</td>
+          <td>$1_2$</td>
+          <td>$2_2$</td>
+          <td>$1_1$</td>
+          <td>$0_0 + 1$</td>
+      </tr>
+      <tr>
+          <td>$-$</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$1_2$</td>
+          <td>$2_2$</td>
+          <td>$1_1$</td>
+          <td>$0_0$</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>prev(f)</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$1_2$</th>
+          <th>$2_2$</th>
+          <th>$1_1 - 1 \rightarrow 0_1$</th>
+          <th>$0_0 + 1$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$-$</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$1_2$</td>
+          <td>$2_2$</td>
+          <td>$0_1$</td>
+          <td>$0_0$</td>
+      </tr>
+  </tbody>
+</table>
+<p>$R[1_2, 2_2]$ corresponds to node $d$.</p>
+<p><strong>prev(d)</strong></p>
+<p>We have to rewrite and find $\mathrm{last}(c)$, which is $c$ itself, then add 1 to the last digit.</p>
+<table>
+  <thead>
+      <tr>
+          <th>index of node d</th>
+          <th>$1_2$</th>
+          <th>$2_2$</th>
+          <th>$0_1$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>rewritten with $\mathrm{last}(c)$ or $\mathrm{last}(R[1_2, 1_2])$</td>
+          <td>$1_2$</td>
+          <td>$2_2 - 1 \rightarrow 1_2$</td>
+          <td>$0_0$</td>
+      </tr>
+      <tr>
+          <td>add 1</td>
+          <td>$1_2$</td>
+          <td>$1_2$</td>
+          <td>$0_0 + 1$</td>
+      </tr>
+      <tr>
+          <td>$-$</td>
+          <td></td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$1_2$</td>
+          <td>$1_2$</td>
+          <td>$0_0$</td>
+      </tr>
+  </tbody>
+</table>
+<p>$R[1_2, 1_2]$ corresponds to node $c$.</p>
+<p><strong>prev(c)</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$1_2$</th>
+          <th>$1_2 - 1 \rightarrow 0_2$</th>
+          <th>$0_0 + 1$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$-$</td>
+          <td></td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$1_2$</td>
+          <td>$0_2$</td>
+          <td>$0_0$</td>
+      </tr>
+  </tbody>
+</table>
+<p>$R[1_2]$ corresponds to node $a$.</p>
+<p><strong>prev(a)</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$1_2 - 1 \rightarrow 0_2$</th>
+          <th>$0_2 + 1 \rightarrow 1_2$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$-$</td>
+          <td></td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$0_2$</td>
+          <td>$0_2$</td>
+      </tr>
+  </tbody>
+</table>
+<p>$R[0_2] = R$.</p>
+<p><strong>prev(R)</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>$0_2$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$-$</td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$=$</td>
+          <td>$-1_2$</td>
+      </tr>
+  </tbody>
+</table>
+<p>In this case, we have encountered a <strong>full underflow</strong>, meaning that such an underflow cannot be further fixed. Therefore, $\mathrm{prev}(R)$ does not exist. It is then trivial to say that $\mathrm{first}(R) = R$, or that the root is the first node in our traversal. The operator $\mathrm{prev}()$ is also non-bounded because of underflow in $\mathrm{prev}(\mathrm{first}(R))$.</p>
+<p>The resulting traversal: $g, e, b, f, d, c, a, R$ is precisely the <strong>reverse</strong> of the <strong>preorder traversal</strong> of the tree.</p>
+<hr>
+<h2 id="homework">Homework</h2>
+
+
+
+  <blockquote class="dream-alert tip">
+    <p class="heading">
+      <ion-icon name="bulb-outline"></ion-icon>Homework</p>
+    <ol>
+<li>The traversal we have seen with <code>prev()</code> and <code>next()</code> node per node demonstrates a <strong>preorder traversal</strong>. How would the operations be affected if we are willing to perform <strong>in order</strong>, <strong>post order</strong> and <strong>level order</strong> traversals?</li>
+<li>This document demonstrates index arithmetic for general tree data structures. How would the operations <code>prev()</code> and <code>next()</code> change if we mixed assumptions to the structure of a tree, e.g. binary trees, trees with fixed number of children, fixed height, etc.? What other neat arithmetic-like operations can be done when introducing such structural assumptions?</li>
+</ol>
+  </blockquote>
+
+
+
+        
+      </section>
+
+      
+      <div class="divider"></div>
+      <div class="flex flex-col md:flex-row justify-between gap-4 py-4">
+        
+        <div></div>
+        
+
+        
+        <div></div>
+        
+      </div>
+      
+
+      
+    </article>
+  </div>
+
+  <div
+    x-data="tocHighlighter()"
+    @scroll.window="debouncedScroll"
+    class="hidden lg:flex lg:flex-col lg:items-end"
+  >
+    
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#prerequisite-knowledge">Prerequisite knowledge</a></li>
+    <li><a href="#motivation">Motivation</a></li>
+    <li><a href="#tree-definition">Tree definition</a></li>
+    <li><a href="#node-indexing">Node indexing</a></li>
+    <li><a href="#index-arithmetic">Index Arithmetic</a>
+      <ul>
+        <li><a href="#bounded-arithmetic">Bounded Arithmetic</a></li>
+        <li><a href="#next"><code>next()</code></a></li>
+        <li><a href="#last"><code>last()</code></a></li>
+        <li><a href="#prev"><code>prev()</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#homework">Homework</a></li>
+  </ul>
+</nav>
+    
+  </div>
+</div>
+
+
+            
+<footer class="flex justify-between items-center gap-2 px-4 py-12">
+
+  <div>
+  
+  <p>© 2025 Farrel Beso</p>
+  
+
+  
+  <p class="text-sm">
+    🌱
+    <span class="text-base-content/60">
+      Powered by <a class="hover:underline" href="https://gohugo.io/" target="_blank">Hugo</a> with theme
+      <a class="hover:underline" href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</span
+    >
+  </p>
+  
+</div>
+
+  <div
+  x-data="{ icons: [
+    { name: 'sunny', status: 'n' },
+    { name: 'moon', status: 'y' },
+    { name: 'desktop', status: 'auto' }
+  ] }"
+  class="flex items-center gap-2 h-[32px] px-2 bg-base-100 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+</footer>
+
+          </div>
+        </div>
+        <div class="back">
+          <div class="container">
+            
+            <div class="dream-grid dream-grid-about">
+  
+  
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">Me</div>
+
+        <div class="prose dark:prose-invert">
+          <p>Hello, I&rsquo;m <strong>Farrel Beso</strong>.</p>
+<p>I&rsquo;m a <strong>BSCS graduate</strong> from <strong>UP Los Baños</strong>, Batch &lsquo;25.</p>
+<p>Currently, I&rsquo;m re-learning the fundamentals, right now, it&rsquo;s about <strong>mathematical proofs</strong> and <strong>abstract algebra</strong>. As such topics nourish the mind, I too cultivate my body by <strong>physically working out</strong> 4 to 5 times a week.</p>
+<p>I&rsquo;m just going to post my thoughts here ad libitum.</p>
+<p>Interested in contacting me? You can email me through my address <strong><a href="mailto:farrelbeso@gmail.com" target="_blank">farrelbeso@gmail.com</a>
+</strong>.</p>
+
+        </div>
+      </div>
+    </article>
+  </div>
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">General Interests</div>
+
+        <div class="prose dark:prose-invert">
+          <p>I&rsquo;m generally interested with a lot of interconnected things, such as <strong>computer science</strong> (theoretical and practical), (usually advanced) <strong>mathematics</strong>, and <strong>music theory and composition</strong> (xenharmonic and baroque).</p>
+
+        </div>
+      </div>
+    </article>
+  </div>
+  
+  
+
+  
+
+  
+</div>
+
+            
+
+            
+<footer class="flex justify-between items-center gap-2 px-4 py-12">
+
+  <div>
+  
+  <p>© 2025 Farrel Beso</p>
+  
+
+  
+  <p class="text-sm">
+    🌱
+    <span class="text-base-content/60">
+      Powered by <a class="hover:underline" href="https://gohugo.io/" target="_blank">Hugo</a> with theme
+      <a class="hover:underline" href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</span
+    >
+  </p>
+  
+</div>
+
+  <div
+  x-data="{ icons: [
+    { name: 'sunny', status: 'n' },
+    { name: 'moon', status: 'y' },
+    { name: 'desktop', status: 'auto' }
+  ] }"
+  class="flex items-center gap-2 h-[32px] px-2 bg-base-100 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+</footer>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+  window.lightTheme =  null 
+  window.darkTheme =  null 
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+
+  
+  
+  <script src="/js/grid.js"></script>
+
+
+
+
+<script src="/js/main.js"></script>
+
+    
+
+
+
+
+
+
+
+<script src="/js/toc.js"></script>
+
+
+
+
+  
+
+
+
+
+    
+
+    
+      <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [
+        ['\\[', '\\]'],
+        ['$$', '$$'],
+      ], 
+      inlineMath: [
+        ['\\(', '\\)'],
+        ['$', '$'],
+      ], 
+    },
+  }
+</script>
+
+    
+
+    
+
+    
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.4.0/dist/ionicons/ionicons.esm.js" integrity="sha256-/IFmi82bIhdYWctu0UddSlJqpnzWm7Vh2C4CM32wF/k=" crossorigin="anonymous"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.4.0/dist/ionicons/ionicons.js" integrity="sha256-mr7eJMX3VC3F7G32mk4oWp1C6a2tlMYxUdptfT7uKI8=" crossorigin="anonymous"></script>
+  </body>
+</html>

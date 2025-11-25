@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Farrel Beso</title>
-    <link>http://localhost:1313/posts/</link>
-    <description>Recent content in Posts on Farrel Beso</description>
+    <title>Random-Thoughts on Farrel Beso</title>
+    <link>http://localhost:1313/categories/random-thoughts/</link>
+    <description>Recent content in Random-Thoughts on Farrel Beso</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 25 Nov 2025 09:46:49 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/random-thoughts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Index Arithmetic for Tree Data Structures</title>
       <link>http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/</link>
