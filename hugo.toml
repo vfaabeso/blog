@@ -20,6 +20,9 @@ headerTitle = "Farrel's Blog"
 email = "farrelbeso@gmail.com"
 siteStartYear = 2025
 
+[params.advanced]
+customCSS = ["css/custom.css"]
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.extensions]
@@ -31,3 +34,7 @@ siteStartYear = 2025
 
     [markup.goldmark.parser.attribute]
     block = true
+
+[services]
+[services.disqus]
+shortname = "..."
