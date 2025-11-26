@@ -1,7 +1,6 @@
 ---
 title: Compositions
 date: 2025-11-26T18:01:41+08:00
-draft: true
 ---
 
 Here are some of my musical compositions that can be found on my Musescore account.

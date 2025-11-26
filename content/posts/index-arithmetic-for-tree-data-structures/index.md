@@ -16,7 +16,6 @@ tags:
   - Computer Science
 # nolastmod: true
 math: true
-draft: true
 ---
 
 ## Prerequisite knowledge

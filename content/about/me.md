@@ -1,7 +1,6 @@
 ---
 title: Me
 date: 2025-11-25T09:45:48+08:00
-draft: true
 ---
 
 Hello, I'm **Farrel Beso**.
