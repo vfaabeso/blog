@@ -38,3 +38,7 @@ customCSS = ["css/custom.css"]
 [services]
 [services.disqus]
 shortname = "..."
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
