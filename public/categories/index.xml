@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Farrel Beso</title>
-    <link>https://example.org/categories/</link>
+    <link>http://localhost:1313/categories/</link>
     <description>Recent content in Categories on Farrel Beso</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 25 Nov 2025 09:46:49 +0800</lastBuildDate>
-    <atom:link href="https://example.org/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Random-Thoughts</title>
-      <link>https://example.org/categories/random-thoughts/</link>
+      <link>http://localhost:1313/categories/random-thoughts/</link>
       <pubDate>Tue, 25 Nov 2025 09:46:49 +0800</pubDate>
-      <guid>https://example.org/categories/random-thoughts/</guid>
+      <guid>http://localhost:1313/categories/random-thoughts/</guid>
       <description></description>
     </item>
   </channel>

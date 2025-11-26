@@ -35,9 +35,9 @@ customCSS = ["css/custom.css"]
     [markup.goldmark.parser.attribute]
     block = true
 
-[services]
-[services.disqus]
-shortname = "..."
+# [services]
+# [services.disqus]
+# shortname = "..."
 
 [caches]
   [caches.images]
