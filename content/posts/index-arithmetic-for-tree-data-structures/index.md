@@ -5,7 +5,7 @@ lastmod: 2025-11-25T09:46:49+08:00
 # author: Farrel Beso
 # avatar: /img/author.jpg
 # authorlink: https://author.site
-# cover: /img/cover.jpg
+cover: /img/covers/math.jpg
 # covercaption: a description of the cover image
 images:
   - tree.svg
