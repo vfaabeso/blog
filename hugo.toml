@@ -20,7 +20,7 @@ headerTitle = "Farrel's Blog"
 email = "farrelbeso@gmail.com"
 siteStartYear = 2025
 
-utterancesRepo = "https://vfaabeso.github.io/blog/"
+utterancesRepo = "vfaabeso/blog"
 
 # [params.advanced]
 # customCSS = ["css/custom.css"]
