@@ -42,9 +42,9 @@ Completing [overthewire](https://overthewire.org/wargames/)’s Bandit levels is
 - **Levels 25+26 & 32**: Shell escape
 - **Levels 27-31**: git
 
-Each level is grouped based on the common thematic point of each level, which is composed of an arc. The levels are semi-ordered, since a theme might reappear on later levels, e.g. Level 32 being separate from other “shell escape” levels (level 25+26).
+Each level is grouped based on the common thematic point, which is composed of an arc. The levels are semi-ordered, since a theme might reappear on later levels, e.g. Level 32 being separate from other “shell escape” levels (level 25+26).
 
-Usually in a given arc, the first level serves as a foundation for higher levels in an arc. I like to imagine it as a form of dialogue. Take the git arc as an example. Suppose that some developer, whose goal is hiding the password as best as they can from unauthorized agents, commits a simple yet fatal mistake in using git: leaving the password bare in a text file! We then respond by obtaining the exposed password. The developer, noticing the predicament they are in, attempts to amend their error as expressed in the next level (Level 28). We again respond by obtaining the password, and implicitly determine how the developer “fixed” the issue.
+Usually in a given arc, the first level serves as a foundation for higher levels. I like to imagine it as a form of dialogue. Take the git arc as an example. Suppose that some developer, whose goal is hiding the password as best as they can from unauthorized agents, commits a simple yet fatal mistake in using git: leaving the password bare in a text file! We then respond by obtaining the exposed password. The developer, noticing the predicament they are in, attempts to amend their error as expressed in the next level (Level 28). We again respond by obtaining the password, and implicitly determine how the developer “fixed” the issue.
 
 # Short commentaries
 
@@ -66,7 +66,7 @@ The use of the `base64` is given in level 10. What command enables us to **trans
 
 **Level 12: Data (de)compression**
 
-Which commands enable us to **compress (and decompress)** files? The `file` command is crucial at this level. It is advised to create a temporary directory for this level (see `mkdir` manpage). The solution is repetitive, yet satisfying.
+Which commands enable us to **compress (and decompress)** files? The `file` command is important to take note at this level. It is advised to create a temporary directory for this level (see `mkdir` manpage). The solution is repetitive, yet satisfying.
 
 **Levels 13 & 18: SSH**
 
