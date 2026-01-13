@@ -10,6 +10,7 @@ cover: puzzle.jpg
 images:
   - domokitten.png
   - puzzle.jpg
+  - proof-of-work
 categories:
   - skills
 tags:
@@ -116,6 +117,12 @@ Contrary to the shell escape arc, this is one of the easiest arcs to solve in my
 - To solve higher levels, previously used commands will be useful, especially in levels that do not give explicit hints.
 
 - Some solutions require you to check the contents of directories one-by-one, e.g. one of the git levels.
+
+---
+
+![local terminal screenshot on the files used while solving the problems](proof-of-work.png)
+
+As proof of work, here's what's left of my local folder dedicated to solving all of the levels.
 
 ---
 
