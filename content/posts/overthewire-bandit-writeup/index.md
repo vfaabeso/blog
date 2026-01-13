@@ -17,7 +17,7 @@ tags:
   - Fun
 # nolastmod: true
 # math: true
-draft: true
+draft: false
 ---
 
 My experience finishing overthewire's Bandit levels (completed: January 12, 2026)

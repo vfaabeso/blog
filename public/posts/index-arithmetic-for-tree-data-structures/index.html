@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us"
   x-data
-  :class="$store.darkMode.class()"
+  :class="$store.darkMode.isDark() ? 'dark' : 'light'"
   :data-theme="$store.darkMode.theme()">
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="UTF-8">
@@ -15,8 +15,7 @@
 
 
 <meta name="author" content="Farrel Beso" />
-<meta name="description" content="Prerequisite knowledge This article assumes that the reader has some knowledge in data structure and algorithms in computer science, specifically the tree data structure and tree traversal. A knowledge in formal grammar would be of great help since it introduces what a tree syntactically is.
-Motivation The primary motivation why such an idea was conceived is tree traversal without the need for explicit indexing of the tree nodes, nor the need to flatten a recursive list. As I try to solve such an issue, I sensed a link between tree traversal, tree indexing, and number systems with their basic arithmetic operations. The primary operations that I have stumbled upon are next(), last(), and prev(), which are further expounded within this article.
+<meta name="description" content="This article relates the indexing of nodes in a tree data structure with number systems of some base, and even perform basic arithmetic with such a number system.
 " />
 
 
@@ -24,14 +23,13 @@ Motivation The primary motivation why such an idea was conceived is tree travers
 
 
 
-<meta name="generator" content="Hugo 0.152.2">
+<meta name="generator" content="Hugo 0.154.5">
 
 
 <meta property="og:url" content="http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/">
   <meta property="og:site_name" content="Farrel Beso">
   <meta property="og:title" content="Index Arithmetic for Tree Data Structures">
-  <meta property="og:description" content="Prerequisite knowledge This article assumes that the reader has some knowledge in data structure and algorithms in computer science, specifically the tree data structure and tree traversal. A knowledge in formal grammar would be of great help since it introduces what a tree syntactically is.
-Motivation The primary motivation why such an idea was conceived is tree traversal without the need for explicit indexing of the tree nodes, nor the need to flatten a recursive list. As I try to solve such an issue, I sensed a link between tree traversal, tree indexing, and number systems with their basic arithmetic operations. The primary operations that I have stumbled upon are next(), last(), and prev(), which are further expounded within this article.">
+  <meta property="og:description" content="This article relates the indexing of nodes in a tree data structure with number systems of some base, and even perform basic arithmetic with such a number system.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -48,8 +46,7 @@ Motivation The primary motivation why such an idea was conceived is tree travers
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/tree.svg">
   <meta name="twitter:title" content="Index Arithmetic for Tree Data Structures">
-  <meta name="twitter:description" content="Prerequisite knowledge This article assumes that the reader has some knowledge in data structure and algorithms in computer science, specifically the tree data structure and tree traversal. A knowledge in formal grammar would be of great help since it introduces what a tree syntactically is.
-Motivation The primary motivation why such an idea was conceived is tree traversal without the need for explicit indexing of the tree nodes, nor the need to flatten a recursive list. As I try to solve such an issue, I sensed a link between tree traversal, tree indexing, and number systems with their basic arithmetic operations. The primary operations that I have stumbled upon are next(), last(), and prev(), which are further expounded within this article.">
+  <meta name="twitter:description" content="This article relates the indexing of nodes in a tree data structure with number systems of some base, and even perform basic arithmetic with such a number system.">
 
 
 
@@ -78,9 +75,20 @@ Motivation The primary motivation why such an idea was conceived is tree travers
 
 
     
-    <link rel="stylesheet" href="/css/custom.css" />
-    
 
+    <script>
+      window.lightTheme = 'emerald'
+      window.darkTheme = 'forest'
+
+      ;(function() {
+        const isDark = ('hugo-theme-dream-is-dark' in localStorage)
+          ? window.localStorage.getItem('hugo-theme-dream-is-dark') === 'y'
+          : window.matchMedia('(prefers-color-scheme: dark)').matches
+        const theme = isDark ? window.darkTheme : window.lightTheme
+
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.1/dist/cdn.min.js" integrity="sha256-Rmqrc5SKeSLTSnQ9shSKWmJco1ks8c1hLI8UG2Np03M=" crossorigin="anonymous"></script>
   </head>
 
@@ -264,11 +272,10 @@ Motivation The primary motivation why such an idea was conceived is tree travers
     <article class="mx-auto prose prose-quoteless dark:prose-invert" id="dream-single-post-main" itemscope itemtype="http://schema.org/Article">
       
   <meta itemprop="name" content="Index Arithmetic for Tree Data Structures">
-  <meta itemprop="description" content="Prerequisite knowledge This article assumes that the reader has some knowledge in data structure and algorithms in computer science, specifically the tree data structure and tree traversal. A knowledge in formal grammar would be of great help since it introduces what a tree syntactically is.
-Motivation The primary motivation why such an idea was conceived is tree traversal without the need for explicit indexing of the tree nodes, nor the need to flatten a recursive list. As I try to solve such an issue, I sensed a link between tree traversal, tree indexing, and number systems with their basic arithmetic operations. The primary operations that I have stumbled upon are next(), last(), and prev(), which are further expounded within this article.">
+  <meta itemprop="description" content="This article relates the indexing of nodes in a tree data structure with number systems of some base, and even perform basic arithmetic with such a number system.">
   <meta itemprop="datePublished" content="2025-11-25T09:46:49+08:00">
   <meta itemprop="dateModified" content="2025-11-25T09:46:49+08:00">
-  <meta itemprop="wordCount" content="1925">
+  <meta itemprop="wordCount" content="1953">
   <meta itemprop="image" content="http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/tree.svg">
   <meta itemprop="image" content="http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/math.jpg">
   <meta itemprop="keywords" content="Math,Computer Science">
@@ -350,7 +357,8 @@ Motivation The primary motivation why such an idea was conceived is tree travers
           </figure>
         
 
-        <h2 id="prerequisite-knowledge">Prerequisite knowledge</h2>
+        <p>This article relates the indexing of nodes in a tree data structure with number systems of some base, and even perform basic arithmetic with such a number system.</p>
+<h2 id="prerequisite-knowledge">Prerequisite knowledge</h2>
 <p>This article assumes that the reader has some knowledge in data structure and algorithms in computer science, specifically the tree data structure and tree traversal. A knowledge in formal grammar would be of great help since it introduces what a tree syntactically is.</p>
 <h2 id="motivation">Motivation</h2>
 <p>The primary motivation why such an idea was conceived is tree traversal without the need for explicit indexing of the tree nodes, nor the need to flatten a recursive list. As I try to solve such an issue, I sensed a link between tree traversal, tree indexing, and number systems with their basic arithmetic operations. The primary operations that I have stumbled upon are <code>next()</code>, <code>last()</code>, and <code>prev()</code>, which are further expounded within this article.</p>
@@ -959,8 +967,6 @@ g = R[2, 1, 1]
 </ol>
   </blockquote>
 
-
-
         
       </section>
 
@@ -968,7 +974,13 @@ g = R[2, 1, 1]
       <div class="divider"></div>
       <div class="flex flex-col md:flex-row justify-between gap-4 py-4">
         
-        <div></div>
+        <a role="button" class="btn btn-outline h-12" href="/posts/overthewire-bandit-writeup/" title="overthewire&#39;s Bandit Writeup">
+          <ion-icon name="chevron-back"></ion-icon>
+          <div class="inline-flex flex-col items-start">
+            <span class="text-base-content/60 text-xs font-normal">Previous page</span>
+            <span class="max-w-48 truncate">overthewire&#39;s Bandit Writeup</span>
+          </div>
+        </a>
         
 
         
@@ -982,34 +994,20 @@ g = R[2, 1, 1]
 
       <section class="space-y-4">
         
-<article>
-  <div id="disqus_thread"></div>
-<script>
-    window.disqus_config = function () {
-        this.page.identifier = '\/posts\/index-arithmetic-for-tree-data-structures\/';
-        this.page.title = 'Index Arithmetic for Tree Data Structures';
-        this.page.url = 'http:\/\/localhost:1313\/posts\/index-arithmetic-for-tree-data-structures\/';
-
-        
-    };
-    function initDisqus() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "..." + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    };
-    setTimeout(() => {
-        initDisqus();
-    }, 3000);
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</article>
 
 
+<template x-if="['localhost', '127.0.0.1'].indexOf(window.location.hostname) == -1">
+  <article>
+    <script
+      src="https://utteranc.es/client.js"
+      repo="vfaabeso/blog"
+      issue-term="og:title"
+      theme="github-light"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </article>
+</template>
 
 
 
@@ -1057,7 +1055,7 @@ g = R[2, 1, 1]
   <div>
   
   <p>
-    © 2025 Farrel Beso
+    © 2025 - 2026 Farrel Beso
   </p>
   
 
@@ -1078,7 +1076,7 @@ g = R[2, 1, 1]
     { name: 'moon', status: 'y' },
     { name: 'desktop', status: 'auto' }
   ] }"
-  class="flex items-center gap-2 h-[32px] px-2 bg-base-100 border border-base-content/30 rounded-full"
+  class="flex items-center gap-2 h-8 px-2 bg-base-100 border border-base-content/30 rounded-full"
 >
   <template x-for="icon in icons">
     <div
@@ -1205,7 +1203,7 @@ g = R[2, 1, 1]
   <div>
   
   <p>
-    © 2025 Farrel Beso
+    © 2025 - 2026 Farrel Beso
   </p>
   
 
@@ -1226,7 +1224,7 @@ g = R[2, 1, 1]
     { name: 'moon', status: 'y' },
     { name: 'desktop', status: 'auto' }
   ] }"
-  class="flex items-center gap-2 h-[32px] px-2 bg-base-100 border border-base-content/30 rounded-full"
+  class="flex items-center gap-2 h-8 px-2 bg-base-100 border border-base-content/30 rounded-full"
 >
   <template x-for="icon in icons">
     <div
@@ -1254,12 +1252,7 @@ g = R[2, 1, 1]
       </div>
     </div>
 
-    <script>
-  window.lightTheme = "emerald"
-  window.darkTheme = "forest"
-</script>
-
-
+    
   <script src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
 

@@ -19,6 +19,10 @@ tags:
 math: true
 ---
 
+This article relates the indexing of nodes in a tree data structure with number systems of some base, and even perform basic arithmetic with such a number system.
+
+<!--more-->
+
 ## Prerequisite knowledge
 
 This article assumes that the reader has some knowledge in data structure and algorithms in computer science, specifically the tree data structure and tree traversal. A knowledge in formal grammar would be of great help since it introduces what a tree syntactically is. 

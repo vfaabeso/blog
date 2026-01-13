@@ -6,14 +6,21 @@
     <description>Recent content on Farrel Beso</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 25 Nov 2025 09:46:49 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 13 Jan 2026 21:33:50 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>overthewire&#39;s Bandit Writeup</title>
+      <link>http://localhost:1313/posts/overthewire-bandit-writeup/</link>
+      <pubDate>Tue, 13 Jan 2026 21:33:50 +0800</pubDate>
+      <guid>http://localhost:1313/posts/overthewire-bandit-writeup/</guid>
+      <description>&lt;p&gt;My experience finishing overthewire&amp;rsquo;s Bandit levels (completed: January 12, 2026)&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Index Arithmetic for Tree Data Structures</title>
       <link>http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/</link>
       <pubDate>Tue, 25 Nov 2025 09:46:49 +0800</pubDate>
       <guid>http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/</guid>
-      <description>&lt;h2 id=&#34;prerequisite-knowledge&#34;&gt;Prerequisite knowledge&lt;/h2&gt;&#xA;&lt;p&gt;This article assumes that the reader has some knowledge in data structure and algorithms in computer science, specifically the tree data structure and tree traversal. A knowledge in formal grammar would be of great help since it introduces what a tree syntactically is.&lt;/p&gt;&#xA;&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;&#xA;&lt;p&gt;The primary motivation why such an idea was conceived is tree traversal without the need for explicit indexing of the tree nodes, nor the need to flatten a recursive list. As I try to solve such an issue, I sensed a link between tree traversal, tree indexing, and number systems with their basic arithmetic operations. The primary operations that I have stumbled upon are &lt;code&gt;next()&lt;/code&gt;, &lt;code&gt;last()&lt;/code&gt;, and &lt;code&gt;prev()&lt;/code&gt;, which are further expounded within this article.&lt;/p&gt;</description>
+      <description>&lt;p&gt;This article relates the indexing of nodes in a tree data structure with number systems of some base, and even perform basic arithmetic with such a number system.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

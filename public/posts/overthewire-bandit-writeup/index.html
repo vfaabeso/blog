@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  x-data
+  :class="$store.darkMode.isDark() ? 'dark' : 'light'"
+  :data-theme="$store.darkMode.theme()">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>overthewire&#39;s Bandit Writeup | Farrel Beso</title>
+
+    
+
+<link rel="canonical" href="http://localhost:1313/posts/overthewire-bandit-writeup/" />
+
+
+
+<meta name="author" content="Farrel Beso" />
+<meta name="description" content="My experience finishing overthewire&rsquo;s Bandit levels (completed: January 12, 2026)
+" />
+
+
+<meta name="keywords" content="Cybersecurity,Fun">
+
+
+
+<meta name="generator" content="Hugo 0.154.5">
+
+
+<meta property="og:url" content="http://localhost:1313/posts/overthewire-bandit-writeup/">
+  <meta property="og:site_name" content="Farrel Beso">
+  <meta property="og:title" content="overthewire&#39;s Bandit Writeup">
+  <meta property="og:description" content="My experience finishing overthewire’s Bandit levels (completed: January 12, 2026)">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-01-13T21:33:50+08:00">
+    <meta property="article:modified_time" content="2026-01-13T21:33:50+08:00">
+    <meta property="article:tag" content="Cybersecurity">
+    <meta property="article:tag" content="Fun">
+    <meta property="og:image" content="http://localhost:1313/posts/overthewire-bandit-writeup/domokitten.png">
+    <meta property="og:image" content="http://localhost:1313/posts/overthewire-bandit-writeup/puzzle.jpg">
+
+
+
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/posts/overthewire-bandit-writeup/domokitten.png">
+  <meta name="twitter:title" content="overthewire&#39;s Bandit Writeup">
+  <meta name="twitter:description" content="My experience finishing overthewire’s Bandit levels (completed: January 12, 2026)">
+
+
+
+
+<link rel="stylesheet" href="/css/output.css" />
+
+
+
+
+    
+
+
+<style>
+  pre {
+    padding: 1em;
+    overflow: auto;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+    
+
+    <script>
+      window.lightTheme = 'emerald'
+      window.darkTheme = 'forest'
+
+      ;(function() {
+        const isDark = ('hugo-theme-dream-is-dark' in localStorage)
+          ? window.localStorage.getItem('hugo-theme-dream-is-dark') === 'y'
+          : window.matchMedia('(prefers-color-scheme: dark)').matches
+        const theme = isDark ? window.darkTheme : window.lightTheme
+
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.1/dist/cdn.min.js" integrity="sha256-Rmqrc5SKeSLTSnQ9shSKWmJco1ks8c1hLI8UG2Np03M=" crossorigin="anonymous"></script>
+  </head>
+
+  <body x-data="{
+    flip: false,
+  }">
+    
+    <div id="dream-global-bg"></div>
+
+    
+<nav class="mt-4 lg:mt-8 py-4">
+
+  
+  <div class="container flex justify-between px-4">
+  
+    <section class="flex items-center gap-4">
+      <div class="avatar cursor-pointer hover:avatar-online" @click="flip = !flip" title="Flip it!">
+        <div class="h-10 rounded-full">
+          <img src="/img/personal/avatar.jpg" alt="Farrel&#39;s Blog" />
+        </div>
+      </div>
+
+      
+      <div>
+        
+        <a href="http://localhost:1313/" class="text-lg font-semibold cursor-pointer">
+          Farrel&#39;s Blog
+        </a>
+        
+        
+      </div>
+      
+    </section>
+
+    
+    
+
+    <div class="dropdown dropdown-end sm:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-square" aria-label="Select an option">
+        <ion-icon name="menu" class="text-2xl"></ion-icon>
+      </div>
+      <ul tabindex="0" class="dropdown-content menu w-36 bg-base-100 rounded-box z-1 shadow-md">
+        
+
+
+
+
+
+
+
+<li>
+  <div role="link" tabindex="0" class="inline-flex items-center p-2 cursor-pointer" @click="flip = !flip" title="About">
+    <ion-icon name="information-circle"></ion-icon>About</div>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/posts" title="Archives">
+    <ion-icon name="archive"></ion-icon>
+    Archives
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="All Categories">
+    <ion-icon name="grid"></ion-icon>
+    All Categories
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="All Tags">
+    <ion-icon name="pricetags"></ion-icon>
+    All Tags
+  </a>
+</li>
+
+
+
+
+
+
+      </ul>
+    </div>
+    <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
+      
+
+      
+      
+
+
+
+
+<div role="link" tabindex="0" class="text-sm font-semibold cursor-pointer hover:underline" @click="flip = !flip" title="About">About</div>
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+
+
+
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/posts" title="Archives">
+  <ion-icon class="group-hover:text-primary-content" name="archive"></ion-icon>
+</a>
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/categories" title="All Categories">
+  <ion-icon class="group-hover:text-primary-content" name="grid"></ion-icon>
+</a>
+
+
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/tags" title="All Tags">
+  <ion-icon class="group-hover:text-primary-content" name="pricetags"></ion-icon>
+</a>
+
+
+      
+
+      
+
+      
+    </section>
+  </div>
+</nav>
+
+
+    <div class="flip-container" :class="{ 'flip-it': flip }">
+      <div class="flipper">
+        <div class="front">
+          <div class="container">
+            
+<div class="lg:grid lg:grid-cols-4 gap-4 mt-4 px-4">
+  <div class="hidden lg:block">
+    
+  </div>
+
+  <div class="lg:col-span-2">
+    <article class="mx-auto prose prose-quoteless dark:prose-invert" id="dream-single-post-main" itemscope itemtype="http://schema.org/Article">
+      
+  <meta itemprop="name" content="overthewire&#39;s Bandit Writeup">
+  <meta itemprop="description" content="My experience finishing overthewire’s Bandit levels (completed: January 12, 2026)">
+  <meta itemprop="datePublished" content="2026-01-13T21:33:50+08:00">
+  <meta itemprop="dateModified" content="2026-01-13T21:33:50+08:00">
+  <meta itemprop="wordCount" content="1146">
+  <meta itemprop="image" content="http://localhost:1313/posts/overthewire-bandit-writeup/domokitten.png">
+  <meta itemprop="image" content="http://localhost:1313/posts/overthewire-bandit-writeup/puzzle.jpg">
+  <meta itemprop="keywords" content="Cybersecurity,Fun">
+
+      <header>
+        <h1 itemprop="headline">overthewire&#39;s Bandit Writeup</h1>
+        <p class="text-sm">
+          
+            Tuesday, Jan 13, 2026
+          
+
+          | <span>6 minute read</span>
+
+          
+          | <span>Updated at
+            
+              Tuesday, Jan 13, 2026
+            </span>
+          
+        </p>
+
+        
+        <div class="flex justify-between">
+          
+            <div class="flex items-center">
+  
+  <span>@</span>
+  
+
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+  
+    
+      <span itemprop="name">Farrel Beso</span>
+    
+  
+  </span>
+</div>
+
+          
+
+          <div class="flex items-center gap-2">
+  
+  
+
+  
+  
+  
+  
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://x.com/intent/post?text=overthewire%27s%20Bandit%20Writeup&amp;url=http://localhost:1313/posts/overthewire-bandit-writeup/" target="_blank" rel="noopener noreferrer"
+      title="Share on X">
+      <ion-icon class="group-hover:text-primary-content" name="logo-x"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://facebook.com/sharer/sharer.php?u=http://localhost:1313/posts/overthewire-bandit-writeup/" target="_blank" rel="noopener noreferrer"
+      title="Share on Facebook">
+      <ion-icon class="group-hover:text-primary-content" name="logo-facebook"></ion-icon>
+    </a>
+  
+    <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
+      href="https://wa.me/?text=overthewire%27s%20Bandit%20Writeup%20http://localhost:1313/posts/overthewire-bandit-writeup/" target="_blank" rel="noopener noreferrer"
+      title="Share on WhatsApp">
+      <ion-icon class="group-hover:text-primary-content" name="logo-whatsapp"></ion-icon>
+    </a>
+  
+
+  
+  
+</div>
+
+        </div>
+      </header>
+
+      <section id="dream-single-post-content" itemprop="articleBody">
+        
+          <figure>
+            <img class="z-30" src="puzzle.jpg" alt="overthewire&#39;s Bandit Writeup" />
+            
+          </figure>
+        
+
+        <p>My experience finishing overthewire&rsquo;s Bandit levels (completed: January 12, 2026)</p>
+<p>Completing <a href="https://overthewire.org/wargames/" target="_blank">overthewire</a>
+’s Bandit levels is possibly one of the fun ways to master important Unix/Linux commands. Solving the levels forces one to comprehensively read topics related to the problem at hand, and quickly learn from failing to crack the level. I would honestly recommend it for people who have some experience with Unix/Linux systems but want a fail-fast challenging refresher on the topic. This article serves as a catalog of helpful yet indirect hints that would direct the readers how to solve the problem (at least one way to do it) if they got lost.</p>
+<h1 id="level-arcs">Level Arcs</h1>
+<ul>
+<li><strong>Levels 0-3</strong>: File reading</li>
+<li><strong>Levels 4-6</strong>: File finding</li>
+<li><strong>Levels 7-9 &amp; 17</strong>: String search: searching the password within a file</li>
+<li><strong>Levels 10 &amp; 11</strong>: String translation, e.g. <code>base64</code></li>
+<li><strong>Level 12</strong>: Data (de)compression</li>
+<li><strong>Levels 13 &amp; 18</strong>: SSH, focusing on its features other than logging in with a password</li>
+<li><strong>Levels 14-16</strong>: Basic network operations</li>
+<li><strong>Levels 19 &amp; 20</strong>: <code>setuid</code></li>
+<li><strong>Levels 21-23</strong>: <code>cron</code></li>
+<li><strong>Level 24</strong>: Brute forcing</li>
+<li><strong>Levels 25+26 &amp; 32</strong>: Shell escape</li>
+<li><strong>Levels 27-31</strong>: git</li>
+</ul>
+<p>Each level is grouped based on the common thematic point of each level, which is composed of an arc. The levels are semi-ordered, since a theme might reappear on later levels, e.g. Level 32 being separate from other “shell escape” levels (level 25+26).</p>
+<p>Usually in a given arc, the first level serves as a foundation for higher levels in an arc. I like to imagine it as a form of dialogue. Take the git arc as an example. Suppose that some developer, whose goal is hiding the password as best as they can from unauthorized agents, commits a simple yet fatal mistake in using git: leaving the password bare in a text file! We then respond by obtaining the exposed password. The developer, noticing the predicament they are in, attempts to amend their error as expressed in the next level (Level 28). We again respond by obtaining the password, and implicitly determine how the developer “fixed” the issue.</p>
+<h1 id="short-commentaries">Short commentaries</h1>
+<p><strong>Levels 0-3: File reading</strong></p>
+<p>The difficulty of this arc increases as more “edge cases” are introduced. For example, what if the file name is <code>-</code> (which is an indicator that a command parameter is an option)? How do you read the contents of this file? What about a file name with spaces?</p>
+<p><strong>Levels 4-6: File finding</strong></p>
+<p>The primary gist of this arc is the usage of the <code>find</code> command. Take time to read its man page.</p>
+<p><strong>Levels 7-9 &amp; 17: String search</strong></p>
+<p>Solutions in this arc mostly utilize the <code>grep</code> command. For some levels, the commands <code>sort</code>, <code>uniq</code>, and <code>diff</code> are crucial.</p>
+<p><strong>Levels 10 &amp; 11: String translation</strong></p>
+<p>The use of the <code>base64</code> is given in level 10. What command enables us to <strong>translate</strong> characters?</p>
+<p><strong>Level 12: Data (de)compression</strong></p>
+<p>Which commands enable us to <strong>compress (and decompress)</strong> files? The <code>file</code> command is crucial at this level. It is advised to create a temporary directory for this level (see <code>mkdir</code> manpage). The solution is repetitive, yet satisfying.</p>
+<p><strong>Levels 13 &amp; 18: SSH</strong></p>
+<p>How does <strong>SSH</strong> utilize <strong>public-key cryptography</strong> in authentication? Is it possible to execute commands via SSH to a remote computer without the need to use the computer’s interactive shell?</p>
+<p><strong>Levels 14-16: Basic network operations</strong></p>
+<p>Focus on understanding the netcat (<code>nc</code>) command. Which command would enable us to perform <strong>port scanning</strong>?</p>
+<p><strong>Levels 19 &amp; 20: <code>setuid</code></strong></p>
+<p>The levels involve executing a binary file that uses the <code>setuid</code> system call. Level 20 serves as a good opportunity to learn the basics of <code>tmux</code> and <strong>Unix job control</strong>; either way is necessary in solving the level.</p>
+<p><strong>Levels 21-23: <code>cron</code></strong></p>
+<p>The first two levels are relatively straightforward: simply read what the scripts being executed by <code>cron</code> does. Level 23 especially requires such comprehension skills, and asking under what conditions the script will execute. Level 23 took me longer than usual due to forgetting the simple fact that passwords are stored in <code>/etc/bandit_pass</code>.</p>
+<p><strong>Level 24: Brute forcing</strong></p>
+<p>This level is a good opportunity to practice shell scripting. Try referring to bash cheat sheets ( <a href="https://devhints.io/bash" target="_blank">here is an example</a>
+) in solving the problem, or look at the shell (<code>sh</code>) manpage. Another hint: What does a command return after executing?</p>
+<p><strong>Levels 25+26 &amp; 32: Shell escape</strong></p>
+<p>The most challenging yet my favorite arc in the Bandit game.</p>
+<p>I have categorically combined levels 25 and 26 together because the solution in Level 26 is relatively straightforward and the level directly emerges after Level 25. Level 25+26 took me approximately three days to solve, yet yields a satisfying solution. Here are questions to consider that might be keys in solving Level 25+26:</p>
+<ol>
+<li>Suppose that a user wants to access a remote shell (e.g. via SSH). How does the owner of that shell (most likely root) configure what shell this remote user will use?</li>
+<li>How does the shell used in level 25 work? What’s the most crucial command that the shell uses, and how does this command work?</li>
+<li>Can you spot any special commands in <code>vi</code> and <code>more</code> to escape the shell?</li>
+</ol>
+<p>Level 32 surprisingly has a simpler solution than expected. Unlike Level 25+26, the shell used in this level is an executable binary, so we are forced to experiment with the shell like a black box. Here are key questions that might help you solve this level:</p>
+<ol>
+<li>Maybe we can input something in the shell that does not involve alphabetic characters, since the inputs automatically convert to uppercase?</li>
+<li>How is the shell in Level 32 initialized and executed?</li>
+<li>In general, what variables do a shell script inherit when executed by a terminal?</li>
+</ol>
+<p><strong>Levels 27-31: <code>git</code></strong></p>
+<p>Contrary to the shell escape arc, this is one of the easiest arcs to solve in my experience. It is in this arc that I have found out that <strong>tags</strong> exist as a git feature. I see some levels as examples of potential mishaps that a git user might do when using git, e.g. flawed attempts in removing leaked information with git.</p>
+<h1 id="tips">Tips</h1>
+<ul>
+<li>
+<p><strong>Patience is really the key.</strong> Most of your time will be spent in reading man pages and searching online. Most solutions are not so obvious, since they often rely on unusual cases that are overlooked compared to how one usually utilizes the Unix/Linux(-related) OS.</p>
+</li>
+<li>
+<p>The basic fact that all of the passwords are stored in <code>/etc/bandit_pass</code> is key in solving multiple levels in Bandit levels. Another fundamental fact is that you can peek at the file contents of other levels (but not at the files themselves due to restricted file permissions), and even high level directories (e.g. <code>etc</code>).</p>
+</li>
+<li>
+<p>To solve higher levels, previously used commands will be useful, especially in levels that do not give explicit hints.</p>
+</li>
+<li>
+<p>Some solutions require you to check the contents of directories one-by-one, e.g. one of the git levels.</p>
+</li>
+</ul>
+<hr>
+<p><img src="domokitten.png" alt="overthewire&rsquo;s top menu image"></p>
+<p>PS. I really ❤️ overthewire’s top menu image 🙂</p>
+
+        
+      </section>
+
+      
+      <div class="divider"></div>
+      <div class="flex flex-col md:flex-row justify-between gap-4 py-4">
+        
+        <div></div>
+        
+
+        
+        <a role="button" class="btn btn-outline h-12" href="/posts/index-arithmetic-for-tree-data-structures/" title="Index Arithmetic for Tree Data Structures">
+          <div class="inline-flex flex-col items-end">
+            <span class="text-base-content/60 text-xs font-normal">Next page</span>
+            <span class="max-w-48 truncate">Index Arithmetic for Tree Data Structures</span>
+          </div>
+          <ion-icon name="chevron-forward"></ion-icon>
+        </a>
+        
+      </div>
+      
+
+      
+      <div class="divider"></div>
+
+      <section class="space-y-4">
+        
+
+
+<template x-if="['localhost', '127.0.0.1'].indexOf(window.location.hostname) == -1">
+  <article>
+    <script
+      src="https://utteranc.es/client.js"
+      repo="vfaabeso/blog"
+      issue-term="og:title"
+      theme="github-light"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </article>
+</template>
+
+
+
+
+
+
+
+
+      </section>
+      
+    </article>
+  </div>
+
+  <div
+    x-data="tocHighlighter()"
+    @scroll.window="debouncedScroll"
+    class="hidden lg:flex lg:flex-col lg:items-end"
+  >
+    
+      <nav id="TableOfContents"></nav>
+    
+  </div>
+</div>
+
+
+            
+<footer class="flex justify-between items-center gap-2 px-4 py-12">
+
+  <div>
+  
+  <p>
+    © 2025 - 2026 Farrel Beso
+  </p>
+  
+
+  
+  <p class="text-sm">
+    🌱
+    <span class="text-base-content/60">
+      Powered by <a class="hover:underline" href="https://gohugo.io/" target="_blank">Hugo</a> with theme
+      <a class="hover:underline" href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</span
+    >
+  </p>
+  
+</div>
+
+  <div
+  x-data="{ icons: [
+    { name: 'sunny', status: 'n' },
+    { name: 'moon', status: 'y' },
+    { name: 'desktop', status: 'auto' }
+  ] }"
+  class="flex items-center gap-2 h-8 px-2 bg-base-100 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+</footer>
+
+          </div>
+        </div>
+        <div class="back">
+          <div class="container">
+            
+            <div class="dream-grid dream-grid-about">
+  
+  
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">Me</div>
+
+        <div class="prose dark:prose-invert">
+          <p>Hello, I&rsquo;m <strong>Farrel Beso</strong>.</p>
+<p>I&rsquo;m a <strong>BSCS graduate</strong> from <strong>UP Los Baños</strong>, Batch &lsquo;25.</p>
+<p>Currently, I&rsquo;m re-learning the fundamentals, right now, it&rsquo;s about <strong>mathematical proofs</strong> and <strong>abstract algebra</strong>.</p>
+<p>I&rsquo;m just going to post my thoughts here ad libitum.</p>
+<p>Interested in contacting me? You can email me through my address <strong><a href="mailto:farrelbeso@gmail.com" target="_blank">farrelbeso@gmail.com</a>
+</strong>.</p>
+
+        </div>
+      </div>
+    </article>
+  </div>
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">General Interests</div>
+
+        <div class="prose dark:prose-invert">
+          <p>I&rsquo;m generally interested with a lot of interconnected things, such as <strong>computer science</strong> (theoretical and practical), (usually advanced) <strong>mathematics</strong>, and <strong>music theory and composition</strong> (xenharmonic and baroque).</p>
+
+        </div>
+      </div>
+    </article>
+  </div>
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">Compositions</div>
+
+        <div class="prose dark:prose-invert">
+          <p>Here are some of my musical compositions that can be found on my Musescore account.</p>
+<p><a href="https://musescore.com/user/97027930/scores/27620305" target="_blank">Short Guitar Piece in E minor</a>
+</p>
+
+
+
+  <blockquote>
+    <p>A two-voice piece in 3/8. Uses relatively simple chord progressions to temporarily modulate to different keys.</p>
+
+  </blockquote>
+
+<p><a href="https://musescore.com/user/97027930/scores/27609100" target="_blank">Prelude in C minor</a>
+</p>
+
+
+
+  <blockquote>
+    <p>A piano prelude where the first half resembles a figuration prelude, and the latter half begins in b-flat minor, and reaches back to the key of C.</p>
+
+  </blockquote>
+
+<p><a href="https://musescore.com/user/97027930/scores/29166134" target="_blank">Short Piece in G minor</a>
+</p>
+
+
+
+  <blockquote>
+    <p>A Corelli-like trio sonata movement with added basso continuo. The main feature of this piece is the simple melody of the upper violin.</p>
+
+  </blockquote>
+
+
+        </div>
+      </div>
+    </article>
+  </div>
+  
+  
+
+  
+
+  
+</div>
+
+            
+
+            
+<footer class="flex justify-between items-center gap-2 px-4 py-12">
+
+  <div>
+  
+  <p>
+    © 2025 - 2026 Farrel Beso
+  </p>
+  
+
+  
+  <p class="text-sm">
+    🌱
+    <span class="text-base-content/60">
+      Powered by <a class="hover:underline" href="https://gohugo.io/" target="_blank">Hugo</a> with theme
+      <a class="hover:underline" href="https://github.com/g1eny0ung/hugo-theme-dream" target="_blank">Dream</a>.</span
+    >
+  </p>
+  
+</div>
+
+  <div
+  x-data="{ icons: [
+    { name: 'sunny', status: 'n' },
+    { name: 'moon', status: 'y' },
+    { name: 'desktop', status: 'auto' }
+  ] }"
+  class="flex items-center gap-2 h-8 px-2 bg-base-100 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+</footer>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  <script src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+
+  
+  
+  <script src="/js/grid.js"></script>
+
+
+
+
+<script src="/js/main.js"></script>
+
+    
+
+
+
+
+
+
+
+<script src="/js/toc.js"></script>
+
+
+  
+    <script type="module">
+      import mediumZoom from 'https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/+esm';
+      mediumZoom('#dream-single-post-content img', {
+        background: 'oklch(var(--b1))',
+        margin: 24,
+      })
+    </script>
+  
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.4.0/dist/ionicons/ionicons.esm.js" integrity="sha256-/IFmi82bIhdYWctu0UddSlJqpnzWm7Vh2C4CM32wF/k=" crossorigin="anonymous"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.4.0/dist/ionicons/ionicons.js" integrity="sha256-mr7eJMX3VC3F7G32mk4oWp1C6a2tlMYxUdptfT7uKI8=" crossorigin="anonymous"></script>
+  </body>
+</html>
