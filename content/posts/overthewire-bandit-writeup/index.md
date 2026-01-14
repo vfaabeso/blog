@@ -27,6 +27,9 @@ My experience finishing overthewire's Bandit levels (completed: January 12, 2026
 
 Completing [overthewire](https://overthewire.org/wargames/)’s Bandit levels is possibly one of the fun ways to master important Unix/Linux commands. Solving the levels forces one to comprehensively read topics related to the problem at hand, and quickly learn from failing to crack the level. I would honestly recommend it for people who have some experience with Unix/Linux systems but want a fail-fast challenging refresher on the topic. This article serves as a catalog of helpful yet indirect hints that would direct the readers how to solve the problem (at least one way to do it) if they got lost.
 
+>[!CAUTION]
+>This series of problems was last solved in January 2026. Hints might be updated if in case the levels get updated in the near future, or even outdated if new levels are added.
+
 # Level Arcs
 
 - **Levels 0-3**: File reading
