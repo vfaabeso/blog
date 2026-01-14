@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Farrel Beso</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://example.org/posts/</link>
     <description>Recent content in Posts on Farrel Beso</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 13 Jan 2026 21:33:50 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>overthewire&#39;s Bandit Writeup</title>
-      <link>http://localhost:1313/posts/overthewire-bandit-writeup/</link>
+      <link>https://example.org/posts/overthewire-bandit-writeup/</link>
       <pubDate>Tue, 13 Jan 2026 21:33:50 +0800</pubDate>
-      <guid>http://localhost:1313/posts/overthewire-bandit-writeup/</guid>
+      <guid>https://example.org/posts/overthewire-bandit-writeup/</guid>
       <description>&lt;p&gt;My experience finishing overthewire&amp;rsquo;s Bandit levels (completed: January 12, 2026)&lt;/p&gt;</description>
     </item>
     <item>
       <title>Index Arithmetic for Tree Data Structures</title>
-      <link>http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/</link>
+      <link>https://example.org/posts/index-arithmetic-for-tree-data-structures/</link>
       <pubDate>Tue, 25 Nov 2025 09:46:49 +0800</pubDate>
-      <guid>http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/</guid>
+      <guid>https://example.org/posts/index-arithmetic-for-tree-data-structures/</guid>
       <description>&lt;p&gt;This article relates the indexing of nodes in a tree data structure with number systems of some base, and even perform basic arithmetic with such a number system.&lt;/p&gt;</description>
     </item>
   </channel>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Computer Science on Farrel Beso</title>
-    <link>http://localhost:1313/tags/computer-science/</link>
+    <link>https://example.org/tags/computer-science/</link>
     <description>Recent content in Computer Science on Farrel Beso</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 25 Nov 2025 09:46:49 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/computer-science/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://example.org/tags/computer-science/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Index Arithmetic for Tree Data Structures</title>
-      <link>http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/</link>
+      <link>https://example.org/posts/index-arithmetic-for-tree-data-structures/</link>
       <pubDate>Tue, 25 Nov 2025 09:46:49 +0800</pubDate>
-      <guid>http://localhost:1313/posts/index-arithmetic-for-tree-data-structures/</guid>
+      <guid>https://example.org/posts/index-arithmetic-for-tree-data-structures/</guid>
       <description>&lt;p&gt;This article relates the indexing of nodes in a tree data structure with number systems of some base, and even perform basic arithmetic with such a number system.&lt;/p&gt;</description>
     </item>
   </channel>

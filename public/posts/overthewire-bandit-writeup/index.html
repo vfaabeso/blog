@@ -3,14 +3,14 @@
   x-data
   :class="$store.darkMode.isDark() ? 'dark' : 'light'"
   :data-theme="$store.darkMode.theme()">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>overthewire&#39;s Bandit Writeup | Farrel Beso</title>
 
     
 
-<link rel="canonical" href="http://localhost:1313/posts/overthewire-bandit-writeup/" />
+<link rel="canonical" href="https://example.org/posts/overthewire-bandit-writeup/" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.154.5">
 
 
-<meta property="og:url" content="http://localhost:1313/posts/overthewire-bandit-writeup/">
+<meta property="og:url" content="https://example.org/posts/overthewire-bandit-writeup/">
   <meta property="og:site_name" content="Farrel Beso">
   <meta property="og:title" content="overthewire&#39;s Bandit Writeup">
   <meta property="og:description" content="My experience finishing overthewire’s Bandit levels (completed: January 12, 2026)">
@@ -37,22 +37,24 @@
     <meta property="article:modified_time" content="2026-01-13T21:33:50+08:00">
     <meta property="article:tag" content="Cybersecurity">
     <meta property="article:tag" content="Fun">
-    <meta property="og:image" content="http://localhost:1313/posts/overthewire-bandit-writeup/domokitten.png">
-    <meta property="og:image" content="http://localhost:1313/posts/overthewire-bandit-writeup/puzzle.jpg">
-    <meta property="og:image" content="http://localhost:1313/proof-of-work">
+    <meta property="og:image" content="https://example.org/posts/overthewire-bandit-writeup/domokitten.png">
+    <meta property="og:image" content="https://example.org/posts/overthewire-bandit-writeup/puzzle.jpg">
+    <meta property="og:image" content="https://example.org/proof-of-work">
 
 
 
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/posts/overthewire-bandit-writeup/domokitten.png">
+  <meta name="twitter:image" content="https://example.org/posts/overthewire-bandit-writeup/domokitten.png">
   <meta name="twitter:title" content="overthewire&#39;s Bandit Writeup">
   <meta name="twitter:description" content="My experience finishing overthewire’s Bandit levels (completed: January 12, 2026)">
 
 
 
 
-<link rel="stylesheet" href="/css/output.css" />
+  
+
+<link rel="stylesheet" href="/css/output.min.css" />
 
 
 
@@ -115,7 +117,7 @@
       
       <div>
         
-        <a href="http://localhost:1313/" class="text-lg font-semibold cursor-pointer">
+        <a href="https://example.org/" class="text-lg font-semibold cursor-pointer">
           Farrel&#39;s Blog
         </a>
         
@@ -276,10 +278,10 @@
   <meta itemprop="description" content="My experience finishing overthewire’s Bandit levels (completed: January 12, 2026)">
   <meta itemprop="datePublished" content="2026-01-13T21:33:50+08:00">
   <meta itemprop="dateModified" content="2026-01-13T21:33:50+08:00">
-  <meta itemprop="wordCount" content="1164">
-  <meta itemprop="image" content="http://localhost:1313/posts/overthewire-bandit-writeup/domokitten.png">
-  <meta itemprop="image" content="http://localhost:1313/posts/overthewire-bandit-writeup/puzzle.jpg">
-  <meta itemprop="image" content="http://localhost:1313/proof-of-work">
+  <meta itemprop="wordCount" content="1161">
+  <meta itemprop="image" content="https://example.org/posts/overthewire-bandit-writeup/domokitten.png">
+  <meta itemprop="image" content="https://example.org/posts/overthewire-bandit-writeup/puzzle.jpg">
+  <meta itemprop="image" content="https://example.org/proof-of-work">
   <meta itemprop="keywords" content="Cybersecurity,Fun">
 
       <header>
@@ -328,19 +330,19 @@
   
   
     <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
-      href="https://x.com/intent/post?text=overthewire%27s%20Bandit%20Writeup&amp;url=http://localhost:1313/posts/overthewire-bandit-writeup/" target="_blank" rel="noopener noreferrer"
+      href="https://x.com/intent/post?text=overthewire%27s%20Bandit%20Writeup&amp;url=https://example.org/posts/overthewire-bandit-writeup/" target="_blank" rel="noopener noreferrer"
       title="Share on X">
       <ion-icon class="group-hover:text-primary-content" name="logo-x"></ion-icon>
     </a>
   
     <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
-      href="https://facebook.com/sharer/sharer.php?u=http://localhost:1313/posts/overthewire-bandit-writeup/" target="_blank" rel="noopener noreferrer"
+      href="https://facebook.com/sharer/sharer.php?u=https://example.org/posts/overthewire-bandit-writeup/" target="_blank" rel="noopener noreferrer"
       title="Share on Facebook">
       <ion-icon class="group-hover:text-primary-content" name="logo-facebook"></ion-icon>
     </a>
   
     <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary"
-      href="https://wa.me/?text=overthewire%27s%20Bandit%20Writeup%20http://localhost:1313/posts/overthewire-bandit-writeup/" target="_blank" rel="noopener noreferrer"
+      href="https://wa.me/?text=overthewire%27s%20Bandit%20Writeup%20https://example.org/posts/overthewire-bandit-writeup/" target="_blank" rel="noopener noreferrer"
       title="Share on WhatsApp">
       <ion-icon class="group-hover:text-primary-content" name="logo-whatsapp"></ion-icon>
     </a>
@@ -379,8 +381,8 @@
 <li><strong>Levels 25+26 &amp; 32</strong>: Shell escape</li>
 <li><strong>Levels 27-31</strong>: git</li>
 </ul>
-<p>Each level is grouped based on the common thematic point of each level, which is composed of an arc. The levels are semi-ordered, since a theme might reappear on later levels, e.g. Level 32 being separate from other “shell escape” levels (level 25+26).</p>
-<p>Usually in a given arc, the first level serves as a foundation for higher levels in an arc. I like to imagine it as a form of dialogue. Take the git arc as an example. Suppose that some developer, whose goal is hiding the password as best as they can from unauthorized agents, commits a simple yet fatal mistake in using git: leaving the password bare in a text file! We then respond by obtaining the exposed password. The developer, noticing the predicament they are in, attempts to amend their error as expressed in the next level (Level 28). We again respond by obtaining the password, and implicitly determine how the developer “fixed” the issue.</p>
+<p>Each level is grouped based on the common thematic point, which is composed of an arc. The levels are semi-ordered, since a theme might reappear on later levels, e.g. Level 32 being separate from other “shell escape” levels (level 25+26).</p>
+<p>Usually in a given arc, the first level serves as a foundation for higher levels. I like to imagine it as a form of dialogue. Take the git arc as an example. Suppose that some developer, whose goal is hiding the password as best as they can from unauthorized agents, commits a simple yet fatal mistake in using git: leaving the password bare in a text file! We then respond by obtaining the exposed password. The developer, noticing the predicament they are in, attempts to amend their error as expressed in the next level (Level 28). We again respond by obtaining the password, and implicitly determine how the developer “fixed” the issue.</p>
 <h1 id="short-commentaries">Short commentaries</h1>
 <p><strong>Levels 0-3: File reading</strong></p>
 <p>The difficulty of this arc increases as more “edge cases” are introduced. For example, what if the file name is <code>-</code> (which is an indicator that a command parameter is an option)? How do you read the contents of this file? What about a file name with spaces?</p>
@@ -391,7 +393,7 @@
 <p><strong>Levels 10 &amp; 11: String translation</strong></p>
 <p>The use of the <code>base64</code> is given in level 10. What command enables us to <strong>translate</strong> characters?</p>
 <p><strong>Level 12: Data (de)compression</strong></p>
-<p>Which commands enable us to <strong>compress (and decompress)</strong> files? The <code>file</code> command is crucial at this level. It is advised to create a temporary directory for this level (see <code>mkdir</code> manpage). The solution is repetitive, yet satisfying.</p>
+<p>Which commands enable us to <strong>compress (and decompress)</strong> files? The <code>file</code> command is important to take note at this level. It is advised to create a temporary directory for this level (see <code>mkdir</code> manpage). The solution is repetitive, yet satisfying.</p>
 <p><strong>Levels 13 &amp; 18: SSH</strong></p>
 <p>How does <strong>SSH</strong> utilize <strong>public-key cryptography</strong> in authentication? Is it possible to execute commands via SSH to a remote computer without the need to use the computer’s interactive shell?</p>
 <p><strong>Levels 14-16: Basic network operations</strong></p>
@@ -716,12 +718,16 @@
 
   
   
-  <script src="/js/grid.js"></script>
+    
+  
+  <script src="/js/grid.min.js"></script>
 
 
 
 
-<script src="/js/main.js"></script>
+  
+
+<script src="/js/main.min.js"></script>
 
     
 
@@ -731,7 +737,9 @@
 
 
 
-<script src="/js/toc.js"></script>
+  
+
+<script src="/js/toc.min.js"></script>
 
 
   
